@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Demo</title>
-  </head>
-  <body>
-    Enter Python to execute:
-    <form action="/" method="post">
-      <input type="text" name="expression" />
-      <input type="submit" value="Execute" />
+{% extends "base.html" %}
+{% block body %}
+<h1>Welcome!</h1>
+  {% if 'username' in session %}
+    <p>Welcome back {{session['username']}}!</p>
+    <form action="{{url_for('index')}}" method="post">
+      <input type="submit" name="logout" value="logout" />      
     </form>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        Results:
-        <pre>
-          {% for message in messages %}
-{{message}}
-	  {% endfor %}
-	</pre>
-       {% endif %}
-     {% endwith %}
-  </body>
-</html>
+  {% else %}	  
+    <p>A login in required:</p>
+    <form action="{{url_for('index')}}" method="post">
+      <p>Username:<br />
+      <input type="text" name="username" /></p>
+      <p>Password:<br />
+      <input type="text" name="password" />      
+      <input type="submit" value="submit" /></p>
+    </form>
+  {% endif %}
+  {% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+      {{message}}
+    {% endfor %}
+   {% endwith %}
+{% endblock %}

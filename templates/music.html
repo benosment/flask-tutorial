@@ -8,22 +8,10 @@
         <li><a href="javascript:void(0);" onclick="playSong('{{song}}')">{{song}}</a></li>
       {% endfor %}
     </ul>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        Results:
-        <pre>
-          {% for message in messages %}
-{{message}}
-	  {% endfor %}
-	</pre>
-       {% endif %}
-   {% endwith %}
    <script type="text/javascript">
      function playSong(song){
        $('audio').attr('src', '/static/music/'+song);
      }
    </script>
 {% endblock %}
-{% block nav %}
-<li><a href="{{url_for('index')}}">back</a></li>	
-{% endblock %}
+
